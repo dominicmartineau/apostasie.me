@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apostasie — Reprendre sa liberté</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f0ede8;
+      color: #1a1a1a;
+      font-family: 'Georgia', serif;
+      line-height: 1.75;
+      padding: 3rem 1rem;
+    }
+
+    .page {
+      background: #faf8f5;
+      max-width: 794px; /* A4 width at 96dpi */
+      margin: 0 auto;
+      padding: 72px 80px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+      border-radius: 2px;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.25rem;
+      color: #111;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #555;
+      margin: 2.5rem 0 0.75rem;
+    }
+
+    p { margin-bottom: 1rem; font-size: 1rem; }
+
+    .definition-word {
+      font-style: italic;
+      font-weight: bold;
+      color: #111;
+    }
+
+    .ugly-facts {
+      margin: 0.5rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .ugly-facts li {
+      padding: 0.65rem 0 0.65rem 1.4rem;
+      border-bottom: 1px solid #e8e4df;
+      position: relative;
+      font-size: 0.97rem;
+    }
+
+    .ugly-facts li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #aaa;
+    }
+
+    .ugly-facts li:last-child { border-bottom: none; }
+
+    .ugly-facts li cite {
+      display: block;
+      font-size: 0.8rem;
+      color: #999;
+      font-style: normal;
+      margin-top: 0.2rem;
+    }
+
+    .steps {
+      counter-reset: steps;
+      list-style: none;
+      margin: 0.5rem 0;
+      padding: 0;
+    }
+
+    .steps li {
+      counter-increment: steps;
+      padding: 0.6rem 0 0.6rem 2rem;
+      border-bottom: 1px solid #e8e4df;
+      font-size: 0.97rem;
+      position: relative;
+    }
+
+    .steps li::before {
+      content: counter(steps) '.';
+      position: absolute;
+      left: 0;
+      color: #aaa;
+      font-weight: bold;
+    }
+
+    .steps li:last-child { border-bottom: none; }
+
+    .btn {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 1.8rem;
+      background: #1a1a1a;
+      color: #faf8f5;
+      border: none;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #333; }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(20,18,14,0.55);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #faf8f5;
+      max-width: 660px;
+      width: 100%;
+      border-radius: 2px;
+      padding: 2.5rem 2.5rem 2rem;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.18);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    .modal p.note {
+      font-size: 0.85rem;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+
+    .letter-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 2px;
+      padding: 1.4rem 1.6rem;
+      font-size: 0.93rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      color: #1a1a1a;
+      font-family: 'Georgia', serif;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-copy {
+      padding: 0.65rem 1.4rem;
+      background: #1a1a1a;
+      color: #faf8f5;
+      border: none;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-copy:hover { background: #333; }
+
+    .btn-close {
+      padding: 0.65rem 1.4rem;
+      background: transparent;
+      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-close:hover { border-color: #999; color: #111; }
+
+    .copied-msg {
+      font-size: 0.85rem;
+      color: #666;
+      font-style: italic;
+      align-self: center;
+      display: none;
+    }
+
+    .signature {
+      margin-top: 3rem;
+      text-align: right;
+    }
+
+    .signature-name {
+      display: block;
+      font-family: 'Dancing Script', cursive;
+      font-size: 4.5rem;
+      color: #555;
+      line-height: 1.2;
+      margin-bottom: 0.3rem;
+    }
+
+    .signature-title {
+      display: block;
+      font-style: italic;
+      color: #aaa;
+      font-size: 0.88rem;
+    }
+
+    .page a, .page a:visited {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: #bbb;
+      text-underline-offset: 3px;
+      transition: text-decoration-color 0.2s;
+    }
+
+    .page a:hover {
+      text-decoration-color: #555;
+    }
+
+    footer {
+      max-width: 794px;
+      margin: 1.5rem auto 0;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #aaa;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <h1>Apostasie moi !</h1>
+  <p class="subtitle">Guide pratique pour quitter officiellement l'Église catholique au Québec</p>
+
+  <!-- DÉFINITION -->
+  <h2>Définition</h2>
+  <p>
+    <span class="definition-word">Apostasie</span> (n.f., du grec <em>apostasia</em>, «&nbsp;défection&nbsp;») —
+    Acte par lequel une personne <strong>renonce formellement et publiquement</strong> à la religion à laquelle elle appartenait.
+    L'apostasie n'est pas un rejet de la spiritualité en soi&nbsp;: c'est <strong><a href="https://www.justice.gc.ca/fra/sjc-csj/dlc-rfc/ccdl-ccrf/" target="_blank" rel="nofollow noopener noreferrer">l'exercice d'un droit fondamental</a></strong>,
+    celui de <em>disposer librement de sa conscience et de son identité religieuse</em>.
+  </p>
+  <p>
+    Dans le contexte québécois, l'apostasie prend la forme d'une démarche administrative permettant de faire
+    inscrire la mention de renonciation au baptême dans les registres paroissiaux, conformément aux directives
+    de la <a href="https://www.cecc.ca/" target="_blank" rel="nofollow noopener noreferrer">Conférence des évêques catholiques du Canada</a>.
+  </p>
+
+  <!-- SOLIDARITÉ -->
+  <h2>Tu n'es pas seul·e</h2>
+  <p>
+    Choisir l'apostasie, c'est avant tout <strong>un acte personnel</strong>. Les raisons qui y mènent sont aussi
+    diverses que les personnes qui franchissent ce pas&nbsp;: désaccord profond avec les positions
+    institutionnelles de l'Église, blessures religieuses, cheminement philosophique, <em>simple volonté
+    que les registres reflètent enfin qui l'on est vraiment</em>. Aucune de ces raisons n'est plus
+    légitime qu'une autre.
+  </p>
+  <p>
+    Cette démarche <strong>n'est pas un geste de haine</strong>, ni une attaque contre les croyants. Beaucoup de
+    personnes qui apostasient entretiennent des liens sincères avec des proches pratiquants — et
+    c'est parfaitement compatible. Ce qui est en jeu ici, c'est uniquement <em>la liberté de ne pas
+    être représenté·e par une institution sans y avoir consenti</em>.
+  </p>
+  <p>
+    Certains diront que c'est purement symbolique — que l'Église ne détient aucun pouvoir réel sur
+    ta vie. <strong>C'est vrai, et c'est justement pourquoi c'est un acte de conviction.</strong> Prendre le temps
+    d'écrire une lettre, de l'envoyer, d'exiger une confirmation écrite&nbsp;: c'est refuser que
+    ton nom serve à gonfler les rangs d'une institution dont tu ne partages pas les valeurs. C'est
+    <em>choisir la cohérence entre ce que tu penses et ce qui est écrit quelque part à ton sujet</em>.
+  </p>
+  <p>
+    Au Québec, <strong>des dizaines de milliers de personnes</strong> ont déjà fait cette démarche. Si tu hésites,
+    sache que tu n'es pas seul·e dans ce questionnement, et qu'il n'y a <strong>aucune honte</strong> — ni aucune
+    urgence — à prendre cette décision <em>à ton propre rythme</em>.
+  </p>
+
+  <!-- COMMENT FAIRE -->
+  <h2>Comment procéder</h2>
+  <ol class="steps">
+    <li>Rédigez une lettre de renonciation au baptême (modèle ci-dessous).</li>
+    <li>
+      Identifiez la paroisse où vous avez été baptisé·e (sur votre certificat de baptême ou via <a href="https://evequescatholiques.quebec/" target="_blank" rel="nofollow noopener noreferrer">l'archidiocèse concerné</a>).
+    </li>
+    <li>Envoyez la lettre par <a href="https://www.canadapost-postescanada.ca/scp/fr/personnel/envois-au-canada/courrier-recommande.page" target="_blank" rel="nofollow noopener noreferrer">courrier recommandé avec accusé de réception</a> au curé de cette paroisse.</li>
+    <li>
+      Conservez une copie de votre lettre ainsi que l'accusé de réception. L'Église est tenue d'inscrire 
+      la mention dans les registres et de vous envoyer une confirmation.
+    </li>
+  </ol>
+
+  <button class="btn" onclick="openModal()">Voir &amp; copier la lettre →</button>
+
+  <p class="signature">
+    <span class="signature-name">Renié Lafoi</span>
+    <span class="signature-title">— Signé, un apostasié</span>
+  </p>
+
+</div>
+
+<!-- MODAL LETTRE -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnOverlay(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <h3 id="modalTitle">Modèle de lettre de renonciation au baptême</h3>
+    <p class="note">
+      Remplissez les champs entre crochets avant d'envoyer. Envoyez de préférence par courrier recommandé
+      avec accusé de réception au curé de la paroisse de votre baptême — ou, en alternative, au Bureau
+      de la chancellerie de votre diocèse.
+    </p>
+
+    <div class="letter-box" id="letterContent">À [Ville], le [Date]
+
+[Votre prénom et nom]
+[Votre adresse complète]
+[Code postal, Ville]
+
+À l'attention du curé de la paroisse [Nom de la paroisse]
+[Adresse de la paroisse]
+[Code postal, Ville]
+
+Objet&nbsp;: Renonciation formelle au baptême
+
+Monsieur le Curé,
+
+Je soussigné(e), [Votre prénom et nom], né(e) le [Date de naissance], ai été baptisé(e) le [Date de baptême] en l'église [Nom de la paroisse de baptême], diocèse de [Nom du diocèse].
+
+Par la présente, je vous notifie formellement de ma renonciation au baptême et de mon retrait de la religion catholique.
+
+M'appuyant sur la Déclaration Universelle des Droits de l'Homme, je souhaite faire valoir mon droit à la liberté de conscience et de religion, et voir ce choix respecté. J'ai mûrement réfléchi cette décision et je sais qu'elle ne portera pas atteinte à mes droits de citoyen(ne), ni maintenant, ni dans le futur.
+
+Je vous demande donc de faire inscrire en marge de mon acte de baptême dans le registre de votre paroisse la mention suivante&nbsp;: «&nbsp;A renoncé à son baptême par lettre datée du [Date].&nbsp;»
+
+Je vous prie de bien vouloir m'envoyer un document confirmant que cette inscription a été effectuée.
+
+Veuillez recevoir, Monsieur le Curé, l'expression de mes salutations distinguées.
+
+[Votre signature]
+[Votre prénom et nom, en lettres moulées]</div>
+
+    <div class="modal-actions">
+      <button class="btn-copy" onclick="copyLetter(this)">Copier la lettre</button>
+      <button class="btn-close" onclick="closeModal()">Fermer</button>
+      <span class="copied-msg" id="copiedMsg">✓ Copié dans le presse-papier&nbsp;!</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Ce site est fourni à titre informatif. Il ne constitue pas un avis juridique.
+  La démarche d'apostasie est un droit reconnu au Canada.
+</footer>
+
+<script>
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeOnOverlay(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function copyLetter(btn) {
+    const text = document.getElementById('letterContent').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const msg = document.getElementById('copiedMsg');
+      msg.style.display = 'inline';
+      setTimeout(() => { msg.style.display = 'none'; }, 3000);
+      launchConfetti(btn);
+    });
+  }
+
+  function launchConfetti(btn) {
+    const colors = ['#1a1a1a', '#888', '#bbb', '#c8a96e', '#6e8fc8', '#c86e6e', '#6ec87a'];
+    const count = 80;
+    const origin = btn.getBoundingClientRect();
+    const startX = origin.left + origin.width / 2;
+    const startY = origin.top + origin.height / 2;
+
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('div');
+      const size = Math.random() * 16 + 10;
+      const isCircle = Math.random() > 0.5;
+      el.style.cssText = `
+        position: fixed;
+        left: ${startX}px;
+        top: ${startY}px;
+        width: ${size}px;
+        height: ${size * (isCircle ? 1 : (Math.random() * 1.5 + 0.5))}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${isCircle ? '50%' : '1px'};
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 1;
+      `;
+      document.body.appendChild(el);
+
+      const angle = Math.random() * Math.PI * 2;
+      const velocity = Math.random() * 6 + 3;
+      const vx = Math.cos(angle) * velocity;
+      const vy = Math.sin(angle) * velocity - (Math.random() * 4 + 2);
+      const spin = (Math.random() - 0.5) * 15;
+      let x = 0, y = 0, rotation = 0, opacity = 1, vy_ = vy;
+      const gravity = 0.18;
+
+      function tick() {
+        vy_ += gravity;
+        x += vx;
+        y += vy_;
+        rotation += spin;
+        opacity -= 0.018;
+        el.style.transform = `translate(${x}px, ${y}px) rotate(${rotation}deg)`;
+        el.style.opacity = opacity;
+        if (opacity > 0) requestAnimationFrame(tick);
+        else el.remove();
+      }
+      requestAnimationFrame(tick);
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
