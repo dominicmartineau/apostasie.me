@@ -24,6 +24,13 @@ Ce site est une ressource informative destinée aux personnes souhaitant faire i
 - Ce site est fourni à titre informatif uniquement. Il ne constitue pas un avis juridique.
 - L'apostasie n'est pas un geste de haine envers les croyants, mais un acte de liberté de conscience individuelle.
 
+## Ressources officielles
+
+- [Conférence des évêques catholiques du Canada](https://www.cecc.ca/) : Instance dont émanent les directives encadrant l'inscription des mentions de renonciation.
+- [Archidiocèses et diocèses du Québec](https://evequescatholiques.quebec/) : Permet d'identifier la paroisse et le diocèse de baptême.
+- [Courrier recommandé — Postes Canada](https://www.canadapost-postescanada.ca/scp/fr/personnel/envois-au-canada/courrier-recommande.page) : Mode d'envoi recommandé pour obtenir un accusé de réception.
+- [Charte canadienne des droits et libertés](https://www.justice.gc.ca/fra/sjc-csj/dlc-rfc/ccdl-ccrf/) : Fondement du droit à la liberté de conscience et de religion.
+
 ## URL
 
-https://apostasie.me/
+- [apostasie.me](https://apostasie.me/) : Page unique regroupant la définition, la démarche complète et le modèle de lettre.
